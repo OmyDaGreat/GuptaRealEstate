@@ -30,27 +30,34 @@ private fun serveStaticFile(req: Request): Response {
     val path = req.uri.path.removePrefix("/")
     val ext = path.substringAfterLast('.', "")
 
-    if (path.startsWith("assets/")) {
-        val file = File(assetsPath, path.removePrefix("assets/"))
-        return if (file.exists() && file.isFile) {
-            val contentType = mimeTypes.getOrDefault(ext.lowercase(), "application/octet-stream")
-            Response(OK).header("Content-Type", contentType).body(file.inputStream(), file.length())
+    val response =
+        if (path.startsWith("assets/")) {
+            val file = File(assetsPath, path.removePrefix("assets/"))
+            if (file.exists() && file.isFile) {
+                val contentType = mimeTypes.getOrDefault(ext.lowercase(), "application/octet-stream")
+                Response(OK).header("Content-Type", contentType).body(file.inputStream(), file.length())
+            } else {
+                Response(NOT_FOUND)
+            }
         } else {
-            Response(NOT_FOUND)
+            val target = if (path.isBlank() || ext.isBlank()) "index.html" else path
+            val contentType =
+                mimeTypes.getOrDefault(target.substringAfterLast('.', "").lowercase(), "text/html; charset=utf-8")
+
+            var foundResponse: Response? = null
+            for (root in staticRoots) {
+                val file = root.resolve(target).normalize()
+                if (file.startsWith(root) && Files.isRegularFile(file)) {
+                    foundResponse =
+                        Response(OK).header("Content-Type", contentType).body(Files.newInputStream(file), Files.size(file))
+                    break
+                }
+            }
+            foundResponse ?: Response(NOT_FOUND)
         }
-    }
 
-    val target = if (path.isBlank() || ext.isBlank()) "index.html" else path
-    val contentType = mimeTypes.getOrDefault(target.substringAfterLast('.', "").lowercase(), "text/html; charset=utf-8")
-
-    for (root in staticRoots) {
-        val file = root.resolve(target).normalize()
-        if (file.startsWith(root) && Files.isRegularFile(file)) {
-            return Response(OK).header("Content-Type", contentType).body(Files.newInputStream(file), Files.size(file))
-        }
-    }
-
-    return Response(NOT_FOUND)
+    Logger.d { "Serving static file: ${req.uri.path} (status: ${response.status})" }
+    return response
 }
 
 val apiRoutes: RoutingHttpHandler =
@@ -72,6 +79,6 @@ val http: HttpHandler =
         if (request.uri.path.startsWith("/api/")) {
             apiRoutes(request).also { Logger.d { "Serving API: ${request.uri.path}" } }
         } else {
-            serveStaticFile(request).also { Logger.d { "Serving static file: ${request.uri.path}" } }
+            serveStaticFile(request)
         }
     }

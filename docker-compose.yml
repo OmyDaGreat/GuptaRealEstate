@@ -1,8 +1,12 @@
 services:
-  app:
+  guptarealty:
     build: .
     expose:
       - "8080"
+    deploy:
+      resources:
+        limits:
+          memory: 768M
     environment:
       - JAVA_OPTS=-Xmx512m
       - PORT=8080
@@ -13,15 +17,11 @@ services:
       - assets_data:/app/assets
       - static_data:/app/site/static
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "0", "http://localhost:8080/api/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
       interval: 30s
-      timeout: 10s
+      timeout: 5s
       retries: 3
       start_period: 20s
-    deploy:
-      resources:
-        limits:
-          memory: 768M
     restart: unless-stopped
 
   nginx:
@@ -33,7 +33,7 @@ services:
       - static_data:/usr/share/nginx/html:ro
       - assets_data:/app/assets:ro
     depends_on:
-      app:
+      guptarealty:
         condition: service_healthy
     restart: unless-stopped
 

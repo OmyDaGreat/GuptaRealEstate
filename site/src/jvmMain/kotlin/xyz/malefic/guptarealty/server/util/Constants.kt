@@ -37,9 +37,15 @@ val staticRoots: List<Path> by lazy {
     listOf(
         Paths.get("build", "dist", "js", "productionExecutable"),
         Paths.get("build", "dist", "js", "productionExecutable", "public"),
+        Paths.get("site", "static"),
+        Paths.get("/app", "site", "static"),
         Paths.get("/app", "site", "build", "dist", "js", "productionExecutable"),
         Paths.get("/app", "site", "build", "dist", "js", "productionExecutable", "public"),
-    ).filter { Files.isDirectory(it) }
+    ).filter {
+        val isDir = Files.isDirectory(it)
+        if (isDir) Logger.i { "Static root found: ${it.toAbsolutePath()}" }
+        isDir
+    }
 }
 
 val assetsPath: String = System.getProperty("ASSETS_PATH") ?: System.getenv("ASSETS_PATH") ?: "assets"
