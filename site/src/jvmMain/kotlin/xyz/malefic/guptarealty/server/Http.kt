@@ -7,6 +7,8 @@ import org.http4k.core.Request
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.core.Status.Companion.OK
+import org.http4k.core.then
+import org.http4k.filter.ServerFilters
 import org.http4k.routing.RoutingHttpHandler
 import org.http4k.routing.bind
 import org.http4k.routing.routes
@@ -66,7 +68,7 @@ val apiRoutes: RoutingHttpHandler =
     )
 
 val http: HttpHandler =
-    { request ->
+    ServerFilters.GZip().then { request ->
         if (request.uri.path.startsWith("/api/")) {
             apiRoutes(request).also { Logger.d { "Serving API: ${request.uri.path}" } }
         } else {
