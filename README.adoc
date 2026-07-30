@@ -1,4 +1,4 @@
-= Gupta Realty
+= Gupta Real Estate
 
 The website for First Team's Gupta Realty, built through Kotlin Multiplatform with a Kobweb frontend and an http4k backend.
 

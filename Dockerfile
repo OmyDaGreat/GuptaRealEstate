@@ -58,4 +58,4 @@ ENV ASSETS_PATH=/app/assets
 # Create assets directory
 RUN mkdir -p /app/assets
 
-ENTRYPOINT ["sh", "-c", "exec java ${JAVA_OPTS:-} -cp /app/lib/*:/app/app.jar xyz.malefic.guptarealty.server.MainKt"]
+ENTRYPOINT ["sh", "-c", "exec java ${JAVA_OPTS:-} -cp /app/lib/*:/app/app.jar xyz.malefic.guptare.server.MainKt"]

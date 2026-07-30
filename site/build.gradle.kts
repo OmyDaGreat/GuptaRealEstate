@@ -2,7 +2,6 @@
 
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import kotlinx.html.link
-import org.gradle.api.tasks.Copy
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
@@ -16,7 +15,7 @@ plugins {
     alias(libs.plugins.kobweb.application)
 }
 
-group = "xyz.malefic.guptarealty"
+group = "xyz.malefic.guptare"
 version = "1.0.0"
 
 val localProperties =
@@ -26,7 +25,7 @@ val localProperties =
     }
 
 kobweb {
-    pagesPackage = "xyz.malefic.guptarealty.client.pages"
+    pagesPackage = "xyz.malefic.guptare.client.pages"
     app {
         index {
             description.set("Gupta Real Estate - Your Orange County Realtor")
@@ -69,7 +68,7 @@ val prepareStaticApi =
                     "106,000+ clients served broker-wide",
                     "61+ office locations expanding across the US"
                   ],
-                  "statsNotice": "Brokerage stats provided by FTRE based on 2025 year-end data.",
+                  "stats_notice": "Brokerage stats provided by FTRE based on 2025 year-end data.",
                   "help": {
                     "title": "How Can I Help?",
                     "description": "Whether you are a seller, buyer, or both, I'm here to guide you along every step of the process.",
@@ -94,7 +93,7 @@ val prepareStaticApi =
                   "insta": {
                     "title": "The Unfiltered Version",
                     "description": "No perfectly staged content here — just home tours, market truths, and the real stories behind every OC deal. Come hang out on Instagram, where it's a lot more fun than a regular open house.",
-                    "followLink": "https://www.instagram.com/ruchika.realtor/",
+                    "follow_link": "https://www.instagram.com/ruchika.realtor/",
                     "posts": [
                       "https://www.instagram.com/p/DR49lRfAfe2/embed/",
                       "https://www.instagram.com/p/DaS1JrPv02w/embed/"
@@ -103,7 +102,7 @@ val prepareStaticApi =
                   "youtube": {
                     "title": "Learn Before You Leap",
                     "description": "Buying or selling a home comes with a lot of decisions — and a lot of ways to get it wrong. On my YouTube channel, I break down what actually matters: how to avoid costly pitfalls, what smart buyers and sellers do differently, and everything I wish more people knew before they signed on the dotted line.",
-                    "followLink": "https://www.youtube.com/channel/UCbPMvIhONGrwsFiFZmu_sgg",
+                    "follow_link": "https://www.youtube.com/channel/UCbPMvIhONGrwsFiFZmu_sgg",
                     "posts": [
                       "https://youtube.com/embed/rgIC0NPFwyA?si=rapKvSrJKQEy0hDV?rel=0",
                       "https://youtube.com/embed/xeqV4rADEEM?si=xZ3v5wqfptIG8jy1?rel=0"
@@ -112,7 +111,7 @@ val prepareStaticApi =
                   "testimonial": {
                     "author": "Ruchika",
                     "quote": "Wow wowow owowow this is a rly long review that says a lot of good things and taht i hope you change rly quickly pls",
-                    "imageSrc": "/Logo.jpg"
+                    "image_src": "/Logo.jpg"
                   }
                 }
                 """.trimIndent()
@@ -142,11 +141,11 @@ kotlin {
         freeCompilerArgs.add("-Xcontext-parameters")
     }
 
-    configAsKobwebApplication("guptarealty")
+    configAsKobwebApplication("guptarealestate")
 
     jvm {
         mainRun {
-            mainClass = "xyz.malefic.guptarealty.server.MainKt"
+            mainClass = "xyz.malefic.guptare.server.MainKt"
         }
     }
 

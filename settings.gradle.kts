@@ -21,6 +21,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "guptarealty"
+rootProject.name = "guptarealestate"
 
 include(":site")

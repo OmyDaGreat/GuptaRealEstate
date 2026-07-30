@@ -1,14 +1,14 @@
 site:
-  title: "Gupta Realty"
+  title: "Gupta Real Estate"
 
 server:
   files:
     dev:
       contentRoot: "build/processedResources/js/main/public"
-      script: "build/kotlin-webpack/js/developmentExecutable/guptarealty.js"
-      api: "build/libs/guptarealty.jar"
+      script: "build/kotlin-webpack/js/developmentExecutable/guptarealestate.js"
+      api: "build/libs/guptarealestate.jar"
     prod:
-      script: "build/kotlin-webpack/js/productionExecutable/guptarealty.js"
+      script: "build/kotlin-webpack/js/productionExecutable/guptarealestate.js"
       siteRoot: ".kobweb/site"
 
   port: 8080
