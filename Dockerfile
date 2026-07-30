@@ -7,10 +7,10 @@ WORKDIR /app
 
 # Install dependencies for Playwright (Chromium)
 RUN apt-get update && apt-get install -y \
-    libglib2.0-0 \
+    libglib2.0-0t64 \
     libnss3 \
-    libatk1.0-0 \
-    libatk-bridge2.0-0 \
+    libatk1.0-0t64 \
+    libatk-bridge2.0-0t64 \
     libcups2 \
     libdrm2 \
     libxkbcommon0 \
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     libxfixes3 \
     libxrandr2 \
     libgbm1 \
-    libasound2 \
+    libasound2t64 \
     libpango-1.0-0 \
     libcairo2 \
     && rm -rf /var/lib/apt/lists/*
