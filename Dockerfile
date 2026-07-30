@@ -1,7 +1,7 @@
 ARG TARGETARCH
 
 # Build Stage
-FROM eclipse-temurin:21-jdk AS builder
+FROM --platform=$BUILDPLATFORM eclipse-temurin:21-jdk AS builder
 
 WORKDIR /app
 
@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     libasound2t64 \
     libpango-1.0-0 \
     libcairo2 \
+    libdbus-1-3 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY gradlew ./
@@ -40,6 +41,8 @@ RUN ./gradlew :site:dockerRuntime
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/site/build/docker /app
 
