@@ -1,6 +1,6 @@
 = Gupta Real Estate
 
-The website for First Team's Gupta Realty, built through Kotlin Multiplatform with a Kobweb frontend and an http4k backend.
+The website for First Team's Gupta Real Estate, built through Kotlin Multiplatform with a Kobweb frontend and an http4k backend.
 
 As a template configurable through the application itself or through code, feel free to use this project as a basis for your own site. The template for this own project, including the unique tech stack, can be found at https://github.com/OmyDaGreat/DynamicSiteTemplate[DynamicSiteTemplate]. Feel free to contribute!
 

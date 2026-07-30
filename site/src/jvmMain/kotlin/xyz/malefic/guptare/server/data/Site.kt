@@ -6,7 +6,7 @@ import xyz.malefic.guptare.server.util.file
 var siteInfo by file(
     "site-info.json",
     SiteInfo(
-        siteName = "Gupta Realty",
+        siteName = "Gupta Real Estate",
         agentName = "Ruchika Gupta",
         agentLicense = "DRE #02161384",
         agentPhone = "714-767-5752",

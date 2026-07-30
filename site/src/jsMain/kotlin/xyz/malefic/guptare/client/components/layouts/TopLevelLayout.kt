@@ -115,7 +115,7 @@ fun TopLevelLayout(content: @Composable () -> Unit) {
                                     AppColors.Secondary,
                                 ).toAttrs(),
                         ) {
-                            Text(siteInfo?.siteName ?: "Gupta Realty")
+                            Text(siteInfo?.siteName ?: "Gupta Real Estate")
                         }
                     }
                 }
