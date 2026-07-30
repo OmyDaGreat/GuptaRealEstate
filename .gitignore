@@ -112,3 +112,5 @@ gradle-app.setting
 local.properties
 
 stitch/
+
+.artifacts

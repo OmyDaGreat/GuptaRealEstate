@@ -29,7 +29,7 @@ kobweb {
     pagesPackage = "xyz.malefic.guptarealty.client.pages"
     app {
         index {
-            description.set("Powered by Kobweb")
+            description.set("Gupta Real Estate - Your Orange County Realtor")
             head.add {
                 link(
                     rel = "stylesheet",
@@ -100,6 +100,7 @@ val dockerRuntime =
         dependsOn(jvmJar)
         dependsOn("compileProductionExecutableKotlinJs")
         dependsOn("jsBrowserDistribution")
+        dependsOn("kobwebExport")
 
         into(layout.buildDirectory.dir("docker"))
 
@@ -111,8 +112,17 @@ val dockerRuntime =
             into("lib")
         }
 
+        from(layout.buildDirectory.dir("site/export")) {
+            into("site/static")
+        }
+
         from(layout.buildDirectory.dir("dist/js/productionExecutable")) {
-            into("site/build/dist/js/productionExecutable")
+            include("*.js", "*.js.map", "*.js.LICENSE.txt")
+            into("site/static")
+        }
+
+        from(layout.buildDirectory.dir("dist/js/productionExecutable/public")) {
+            into("site/static")
         }
     }
 
