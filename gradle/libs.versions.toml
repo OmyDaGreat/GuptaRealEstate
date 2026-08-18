@@ -21,10 +21,9 @@ kutint = { group = "xyz.malefic", name = "kutint", version.ref = "kutint" }
 
 http4k-core = { group = "org.http4k", name = "http4k-core", version.ref = "http4k" }
 http4k-multipart = { group = "org.http4k", name = "http4k-multipart", version.ref = "http4k" }
-http4k-server-undertow = { group = "org.http4k", name = "http4k-server-undertow", version.ref = "http4k" }
+http4k-server-jetty = { group = "org.http4k", name = "http4k-server-jetty", version.ref = "http4k" }
 http4k-format-kotlinx = { group = "org.http4k", name = "http4k-format-kotlinx-serialization", version.ref = "http4k" }
 http4k-client-okhttp = { group = "org.http4k", name = "http4k-client-okhttp", version.ref = "http4k" }
-http4k-hot-reload = { group = "org.http4k.pro", name = "http4k-tools-hotreload", version.ref = "http4k" }
 
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
@@ -41,4 +40,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 [bundles]
 kobweb = ["kobweb-core", "kobweb-silk", "silk-icons-ms", "silk-icons-fa"]
 compose = ["compose-html-core", "compose-runtime"]
-http4k = ["http4k-core", "http4k-multipart", "http4k-server-undertow", "http4k-format-kotlinx", "http4k-client-okhttp", "http4k-hot-reload"]
+http4k = ["http4k-core", "http4k-multipart", "http4k-server-jetty", "http4k-format-kotlinx", "http4k-client-okhttp"]
