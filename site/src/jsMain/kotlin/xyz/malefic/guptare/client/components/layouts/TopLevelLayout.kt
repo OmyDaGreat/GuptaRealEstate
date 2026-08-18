@@ -87,9 +87,8 @@ fun TopLevelLayout(content: @Composable () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
-            .minHeight(
-                100.vh,
-            ).backgroundColor(AppColors.Background),
+            .minHeight(100.vh)
+            .backgroundColor(AppColors.Background),
     ) {
         Box(NavBarStyle.toModifier(), Alignment.Center) {
             Row(
@@ -123,9 +122,7 @@ fun TopLevelLayout(content: @Composable () -> Unit) {
                 Box(Modifier.flexGrow(1))
 
                 Row(
-                    ShowOnMdStyle
-                        .toModifier()
-                        .gap(32.px),
+                    ShowOnMdStyle.toModifier().gap(32.px),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     TopLevelPages.entries.forEach { page ->
