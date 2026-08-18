@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import org.http4k.core.Method
 import org.http4k.filter.AllowAllOriginPolicy
 import org.http4k.filter.CorsPolicy
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -53,13 +54,30 @@ val assetsPath: String = System.getProperty("ASSETS_PATH") ?: System.getenv("ASS
 val userId = Uuid.random()
 
 val bearerToken: String by lazy {
-    val rawToken =
+    val envToken =
         System.getProperty("BEARER_TOKEN")?.takeIf { it.isNotBlank() }
             ?: System.getenv("BEARER_TOKEN")?.takeIf { it.isNotBlank() }
-            ?: Uuid.random().toString().also {
-                Logger.w { "BEARER_TOKEN not found in environment. Generated random token for this session: $it" }
+
+    if (envToken != null) {
+        return@lazy Base64.encode(envToken.encodeToByteArray())
+    }
+
+    val tokenFile = File(assetsPath, ".bearer_token")
+    val token =
+        if (tokenFile.exists()) {
+            tokenFile.readText().trim()
+        } else {
+            val newToken = Uuid.random().toString()
+            try {
+                tokenFile.parentFile?.mkdirs()
+                tokenFile.writeText(newToken)
+                Logger.w { "BEARER_TOKEN not found in environment. Generated and saved stable token to ${tokenFile.absolutePath}" }
+            } catch (e: Exception) {
+                Logger.e(e) { "Failed to save stable bearer token to ${tokenFile.absolutePath}" }
             }
-    Base64.encode(rawToken.encodeToByteArray())
+            newToken
+        }
+    Base64.encode(token.encodeToByteArray())
 }
 
 val fubApiKey: String? = System.getProperty("FUB_API_KEY") ?: System.getenv("FUB_API_KEY")
