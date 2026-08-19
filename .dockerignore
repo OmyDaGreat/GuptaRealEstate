@@ -3,6 +3,8 @@
 .idea
 .kotlin
 build
+site/build
+site/.kobweb
 kotlin-js-store
 .github
 .gitignore

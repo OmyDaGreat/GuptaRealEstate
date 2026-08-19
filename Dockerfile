@@ -35,7 +35,8 @@ RUN chmod +x ./gradlew
 
 COPY . .
 
-RUN ./gradlew :site:dockerRuntime
+ARG BUILD_SHA
+RUN echo "Building ${BUILD_SHA}" && ./gradlew :site:dockerRuntime
 
 # Runtime Stage
 FROM eclipse-temurin:21-jre
