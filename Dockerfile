@@ -1,4 +1,5 @@
 ARG TARGETARCH
+ARG BUILD_SHA=unknown
 
 # Build Stage
 FROM --platform=$BUILDPLATFORM eclipse-temurin:21-jdk AS builder
@@ -36,10 +37,14 @@ RUN chmod +x ./gradlew
 COPY . .
 
 ARG BUILD_SHA
-RUN echo "Building ${BUILD_SHA}" && ./gradlew :site:dockerRuntime
+ENV BUILD_SHA=$BUILD_SHA
+RUN ./gradlew :site:dockerRuntime --no-daemon --no-build-cache --no-configuration-cache
 
 # Runtime Stage
 FROM eclipse-temurin:21-jre
+
+ARG BUILD_SHA
+LABEL org.opencontainers.image.revision=$BUILD_SHA
 
 WORKDIR /app
 
