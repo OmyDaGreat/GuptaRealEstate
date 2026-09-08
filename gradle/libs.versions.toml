@@ -6,7 +6,7 @@ kutint = "2.1.0"
 http4k = "6.58.0.0"
 kotlinx-serialization = "1.11.0"
 datetime = "0.8.0"
-kermit = "2.1.0"
+kermit = "2.2.0"
 
 [libraries]
 compose-html-core = { module = "org.jetbrains.compose.html:html-core", version.ref = "jetbrains-compose" }
