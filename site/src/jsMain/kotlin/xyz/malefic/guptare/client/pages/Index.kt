@@ -654,7 +654,8 @@ fun ReviewSection(info: HomeInfo?) =
             .toModifier()
             .position(Position.Relative)
             .overflow(Overflow.Hidden)
-            .minHeight(80.vh),
+            .minHeight(80.vh)
+            .padding(bottom = 0.px),
         Alignment.Center,
     ) {
         Loading(info?.testimonial) {
