@@ -253,7 +253,7 @@ fun AboutSection(info: HomeInfo?) =
                             Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(4, 5)
-                                .objectFit(ObjectFit.Contain)
+                                .objectFit(ObjectFit.Cover)
                                 .borderRadius(AppRadius.Lg)
                                 .then(AppModifiers.SoftShadow),
                         )
