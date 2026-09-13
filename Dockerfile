@@ -44,6 +44,7 @@ RUN ./gradlew :site:dockerRuntime --no-daemon --no-build-cache --no-configuratio
 FROM eclipse-temurin:21-jre
 
 ARG BUILD_SHA
+ENV BUILD_SHA=$BUILD_SHA
 LABEL org.opencontainers.image.revision=$BUILD_SHA
 
 WORKDIR /app
