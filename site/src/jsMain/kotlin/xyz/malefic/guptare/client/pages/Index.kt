@@ -350,11 +350,7 @@ fun HelpBox(info: HelpBoxHomeInfo) =
             .then(AppModifiers.ElevatedShadow),
     ) {
         Image(info.image, "${info.title} Help Image", Modifier.fillMaxWidth().height(240.px).objectFit(ObjectFit.Cover))
-        Column(
-            Modifier.padding(
-                AppSpacing.S4,
-            ),
-        ) {
+        Column(Modifier.padding(AppSpacing.S4)) {
             H2(
                 HeadlineMdStyle
                     .toModifier()
@@ -373,11 +369,7 @@ fun HelpBox(info: HelpBoxHomeInfo) =
             ) {
                 Text(info.description)
             }
-            Link(
-                "/contact",
-                PrimaryButtonStyle
-                    .toModifier(),
-            ) {
+            Link("/contact", PrimaryButtonStyle.toModifier()) {
                 Text("Learn More")
             }
         }
