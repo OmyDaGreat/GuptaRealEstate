@@ -4,6 +4,7 @@ import com.varabyte.kobweb.compose.css.ObjectFit
 import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.aspectRatio
+import com.varabyte.kobweb.compose.ui.modifiers.border
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
 import com.varabyte.kobweb.compose.ui.modifiers.display
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
@@ -16,6 +17,7 @@ import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.selectors.hover
 import org.jetbrains.compose.web.css.AnimationTimingFunction
 import org.jetbrains.compose.web.css.DisplayStyle
+import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.s
 
@@ -78,5 +80,20 @@ val ContentCardStyle =
         }
         hover {
             Modifier.then(AppModifiers.ElevatedShadow)
+        }
+    }
+
+/**
+ * Transparent glass card for overlays.
+ */
+val GlassCardStyle =
+    CssStyle {
+        base {
+            Modifier
+                .then(AppModifiers.Glass)
+                .borderRadius(AppRadius.Lg)
+                .padding(AppSpacing.S6)
+                .then(AppModifiers.SoftShadow)
+                .border(1.px, LineStyle.Solid, AppColors.Outline.withAlpha(0.2f))
         }
     }

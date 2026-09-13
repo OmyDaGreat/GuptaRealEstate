@@ -69,7 +69,6 @@ import org.jetbrains.compose.web.css.FlexWrap
 import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.Position
 import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.H1
@@ -90,6 +89,7 @@ import xyz.malefic.guptare.client.styles.BodyLgStyle
 import xyz.malefic.guptare.client.styles.BodyMdStyle
 import xyz.malefic.guptare.client.styles.ContainerStyle
 import xyz.malefic.guptare.client.styles.DisplayLgStyle
+import xyz.malefic.guptare.client.styles.GlassCardStyle
 import xyz.malefic.guptare.client.styles.HeadlineMdStyle
 import xyz.malefic.guptare.client.styles.HeadlineSmStyle
 import xyz.malefic.guptare.client.styles.LabelSmStyle
@@ -147,10 +147,10 @@ fun HeroSection(info: HomeInfo?) =
 
             Box(ContainerStyle.toModifier().zIndex(2)) {
                 Column(
-                    Modifier
+                    GlassCardStyle
+                        .toModifier()
                         .fillMaxWidth()
                         .maxWidth(640.px)
-                        .padding(topBottom = AppSpacing.SectionGap)
                         .textAlign(TextAlign.Center),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
@@ -663,12 +663,11 @@ fun ReviewSection(info: HomeInfo?) =
                 Alignment.CenterStart,
             ) {
                 Column(
-                    Modifier
+                    GlassCardStyle
+                        .toModifier()
                         .fillMaxWidth()
-                        .maxWidth(800.px)
-                        .padding(topBottom = AppSpacing.SectionGap)
-                        .textAlign(TextAlign.Center)
-                        .fillMaxWidth(50.percent),
+                        .maxWidth(600.px)
+                        .textAlign(TextAlign.Center),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     H1(
