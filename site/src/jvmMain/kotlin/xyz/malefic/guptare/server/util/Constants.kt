@@ -50,6 +50,7 @@ val staticRoots: List<Path> by lazy {
 }
 
 val assetsPath: String = System.getProperty("ASSETS_PATH") ?: System.getenv("ASSETS_PATH") ?: "assets"
+val buildSha: String = System.getProperty("BUILD_SHA") ?: System.getenv("BUILD_SHA") ?: "unknown"
 
 val userId = Uuid.random()
 

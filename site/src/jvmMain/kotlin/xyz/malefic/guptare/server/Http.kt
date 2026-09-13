@@ -19,6 +19,7 @@ import xyz.malefic.guptare.server.api.site
 import xyz.malefic.guptare.server.api.testimonial
 import xyz.malefic.guptare.server.api.webinar
 import xyz.malefic.guptare.server.util.assetsPath
+import xyz.malefic.guptare.server.util.buildSha
 import xyz.malefic.guptare.server.util.mimeTypes
 import xyz.malefic.guptare.server.util.staticRoots
 import java.io.File
@@ -62,6 +63,7 @@ val apiRoutes: RoutingHttpHandler =
     routes(
         "/api/ping" bind GET to { Response(OK).body("pong") },
         "/api/health" bind GET to { Response(OK).body("healthy") },
+        "/api/version" bind GET to { Response(OK).body(buildSha) },
         *admin,
         *assets,
         *blog,
