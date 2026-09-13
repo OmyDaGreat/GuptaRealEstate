@@ -54,9 +54,8 @@ fun AdminFieldNull(
             attrs =
                 LabelMdStyle
                     .toModifier()
-                    .margin(
-                        bottom = AppSpacing.S1,
-                    ).toAttrs(),
+                    .margin(bottom = AppSpacing.S1)
+                    .toAttrs(),
         ) {
             link?.let { Link(it, label) } ?: Text(label)
         }

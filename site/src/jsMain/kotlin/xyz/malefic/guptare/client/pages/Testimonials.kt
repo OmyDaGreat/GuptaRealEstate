@@ -14,7 +14,6 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.animation
 import com.varabyte.kobweb.compose.ui.modifiers.display
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
-import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.flex
 import com.varabyte.kobweb.compose.ui.modifiers.flexDirection
 import com.varabyte.kobweb.compose.ui.modifiers.gap
@@ -23,6 +22,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.overflow
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.translateY
 import com.varabyte.kobweb.compose.ui.styleModifier
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.animation.Keyframes
@@ -36,10 +36,14 @@ import org.jetbrains.compose.web.css.FlexDirection
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.s
 import org.jetbrains.compose.web.css.vh
+import org.jetbrains.compose.web.dom.Span
+import org.jetbrains.compose.web.dom.Text
 import xyz.malefic.guptare.client.api.getTestimonials
 import xyz.malefic.guptare.client.components.Loading
-import xyz.malefic.guptare.client.components.Polaroid
 import xyz.malefic.guptare.client.styles.AppSpacing
+import xyz.malefic.guptare.client.styles.BodyMdStyle
+import xyz.malefic.guptare.client.styles.ContentCardStyle
+import xyz.malefic.guptare.client.styles.LabelSmStyle
 import xyz.malefic.guptare.model.Testimonial
 
 val ScrollUpKeyframes =
@@ -76,11 +80,17 @@ val MarqueeColumnStyle =
                 .overflow(Overflow.Hidden)
                 .display(DisplayStyle.Flex)
                 .flexDirection(FlexDirection.Column)
+                .padding(leftRight = AppSpacing.S2)
         }
     }
 
 val MarqueeContentStyle =
     CssStyle {
+        base {
+            Modifier.styleModifier {
+                property("animation-play-state", "running")
+            }
+        }
         hover {
             Modifier.styleModifier {
                 property("animation-play-state", "paused")
@@ -141,12 +151,10 @@ fun MarqueeColumn(
                 ).gap(AppSpacing.S3),
         ) {
             (testimonials + testimonials).forEach { testimonial ->
-                Polaroid(
-                    testimonial.author,
-                    testimonial.quote,
-                    testimonial.imageSrc,
-                    Modifier.fillMaxWidth(),
-                )
+                Column(ContentCardStyle.toModifier()) {
+                    Span(BodyMdStyle.toModifier().toAttrs()) { Text(testimonial.quote) }
+                    Span(LabelSmStyle.toModifier().toAttrs()) { Text(testimonial.author) }
+                }
             }
         }
     }
