@@ -153,6 +153,7 @@ fun MarqueeColumn(
             (testimonials + testimonials).forEach { testimonial ->
                 Column(ContentCardStyle.toModifier()) {
                     Span(BodyMdStyle.toModifier().toAttrs()) { Text(testimonial.quote) }
+                    Span(LabelSmStyle.toModifier().toAttrs()) { Text("") }
                     Span(LabelSmStyle.toModifier().toAttrs()) { Text(testimonial.author) }
                 }
             }
