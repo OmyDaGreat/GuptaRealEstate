@@ -28,41 +28,19 @@ object AppModifiers {
     //    Ivory Mist at ~82 % opacity + backdrop blur
     val Glass: Modifier =
         Modifier
-            .backgroundColor(
-                AppColors.Background
-                    .withAlpha(0.82f),
-            ).backdropFilter(blur(16.px))
+            .backgroundColor(AppColors.Background.withAlpha(0.82f))
+            .backdropFilter(blur(16.px))
             .styleModifier {
                 property("-webkit-backdrop-filter", "blur(16px)")
             }
 
     // ── Ambient neutral shadow (low-opacity) ──────────────────────────────────
-    val SoftShadow: Modifier =
-        Modifier
-            .boxShadow(
-                0.px,
-                4.px,
-                24.px,
-                0.px,
-                AppColors.OnSurface
-                    .withAlpha(0.06f),
-            )
+    val SoftShadow: Modifier = Modifier.boxShadow(0.px, 4.px, 24.px, 0.px, AppColors.OnSurface.withAlpha(0.06f))
 
-    val ElevatedShadow: Modifier =
-        Modifier
-            .boxShadow(
-                0.px,
-                8.px,
-                32.px,
-                0.px,
-                AppColors.OnSurface
-                    .withAlpha(0.12f),
-            )
+    val ElevatedShadow: Modifier = Modifier.boxShadow(0.px, 8.px, 32.px, 0.px, AppColors.OnSurface.withAlpha(0.12f))
 
     // ── 1 px structural border for cards / inputs ────────────────────────────
-    val CardBorder: Modifier =
-        Modifier
-            .border(1.px, LineStyle.Solid, AppColors.Outline)
+    val CardBorder: Modifier = Modifier.border(1.px, LineStyle.Solid, AppColors.Outline)
 
     // ── Base card surface  (Ivory Low + border + soft shadow) ─────────────────
     val Card: Modifier =

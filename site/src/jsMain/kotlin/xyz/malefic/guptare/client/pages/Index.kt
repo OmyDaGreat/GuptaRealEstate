@@ -107,12 +107,8 @@ fun HomePage() {
     var posts by remember { mutableStateOf<List<BlogPostResponse>?>(null) }
 
     LaunchedEffect(Unit) {
-        info =
-            getHomeInfo()
-        posts =
-            getBlog()
-                .sortedByDescending { it.date }
-                .take(3)
+        info = getHomeInfo()
+        posts = getBlog().sortedByDescending { it.date }.take(3)
     }
 
     Column(Modifier.fillMaxSize()) {
@@ -149,11 +145,7 @@ fun HeroSection(info: HomeInfo?) =
                     .zIndex(1),
             )
 
-            Box(
-                ContainerStyle
-                    .toModifier()
-                    .zIndex(2),
-            ) {
+            Box(ContainerStyle.toModifier().zIndex(2)) {
                 Column(
                     Modifier
                         .fillMaxWidth()
@@ -181,11 +173,7 @@ fun HeroSection(info: HomeInfo?) =
                         Text(subtitle)
                     }
                     Box(Modifier.gap(16.px).flexWrap(FlexWrap.Wrap), contentAlignment = Alignment.Center) {
-                        Link(
-                            "/contact",
-                            PrimaryButtonStyle
-                                .toModifier(),
-                        ) {
+                        Link("/contact", PrimaryButtonStyle.toModifier()) {
                             Text("Let's Talk")
                         }
                     }
@@ -205,10 +193,7 @@ fun StatsSection(info: HomeInfo?) =
                 .position(Position.Relative),
             contentAlignment = Alignment.Center,
         ) {
-            Box(
-                ContainerStyle
-                    .toModifier(),
-            ) {
+            Box(ContainerStyle.toModifier()) {
                 SimpleGrid(
                     numColumns(1, sm = 2, md = stats.size.coerceAtMost(4)),
                     Modifier.fillMaxWidth().padding(AppSpacing s 2),
@@ -255,12 +240,7 @@ fun AboutSection(info: HomeInfo?) =
             .alignSelf(AlignSelf.Stretch),
         Alignment.Center,
     ) {
-        Box(
-            ContainerStyle.toModifier().padding(
-                topBottom =
-                    AppSpacing s 8,
-            ),
-        ) {
+        Box(ContainerStyle.toModifier().padding(topBottom = AppSpacing s 8)) {
             SimpleGrid(
                 numColumns(1, md = 12),
                 Modifier.gap(AppSpacing.Gutter).alignItems(AlignItems.Center),
@@ -273,6 +253,7 @@ fun AboutSection(info: HomeInfo?) =
                             Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(4, 5)
+                                .objectFit(ObjectFit.Contain)
                                 .borderRadius(AppRadius.Lg)
                                 .then(AppModifiers.SoftShadow),
                         )
@@ -300,11 +281,7 @@ fun AboutSection(info: HomeInfo?) =
                         }
                     }
                     Box(Modifier.margin(top = 24.px).gap(16.px).flexWrap(FlexWrap.Wrap), Alignment.Center) {
-                        Link(
-                            "/contact",
-                            PrimaryButtonStyle
-                                .toModifier(),
-                        ) {
+                        Link("/contact", PrimaryButtonStyle.toModifier()) {
                             Text("Let's Talk")
                         }
                     }
