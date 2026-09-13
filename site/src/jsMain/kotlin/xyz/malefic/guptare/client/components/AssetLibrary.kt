@@ -88,8 +88,7 @@ fun AssetLibrary(
                             if (file != null) {
                                 scope.launch {
                                     uploadAsset(file, token)
-                                    assets =
-                                        getAssetList(token)
+                                    assets = getAssetList(token)
                                 }
                             }
                         }

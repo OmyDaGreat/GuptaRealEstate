@@ -36,8 +36,7 @@ fun TestimonialsPage() {
     val playgroundHeight = remember(testimonials?.size) { max(testimonials?.let { 15.0 * it.size } ?: 100.0, 100.0) }
 
     LaunchedEffect(Unit) {
-        testimonials =
-            getTestimonials()
+        testimonials = getTestimonials()
     }
 
     Loading(testimonials) {
