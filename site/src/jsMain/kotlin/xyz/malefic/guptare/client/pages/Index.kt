@@ -652,7 +652,7 @@ fun ReviewSection(info: HomeInfo?) =
                     .toModifier()
                     .fillMaxHeight()
                     .zIndex(2),
-                Alignment.CenterStart,
+                Alignment.Center,
             ) {
                 Column(
                     GlassCardStyle
