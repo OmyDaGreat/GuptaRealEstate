@@ -75,8 +75,10 @@ import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.H2
 import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Source
 import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.Video
 import xyz.malefic.guptare.client.api.getBlog
 import xyz.malefic.guptare.client.api.getHomeInfo
 import xyz.malefic.guptare.client.components.Iframe
@@ -135,15 +137,35 @@ fun HeroSection(info: HomeInfo?) =
         Alignment.Center,
     ) {
         Loading(info?.hero) {
-            Image(
-                image,
-                "Hero Image",
-                Modifier
-                    .fillMaxSize()
-                    .objectFit(ObjectFit.Cover)
-                    .position(Position.Absolute)
-                    .zIndex(1),
-            )
+            if (video != null) {
+                Video(
+                    attrs =
+                        Modifier
+                            .fillMaxSize()
+                            .objectFit(ObjectFit.Cover)
+                            .position(Position.Absolute)
+                            .zIndex(1)
+                            .toAttrs {
+                                attr("autoplay", "")
+                                attr("muted", "")
+                                attr("loop", "")
+                                attr("playsinline", "")
+                                attr("poster", image)
+                            },
+                ) {
+                    Source(attrs = { attr("src", video) })
+                }
+            } else {
+                Image(
+                    image,
+                    "Hero Image",
+                    Modifier
+                        .fillMaxSize()
+                        .objectFit(ObjectFit.Cover)
+                        .position(Position.Absolute)
+                        .zIndex(1),
+                )
+            }
 
             Box(ContainerStyle.toModifier().zIndex(2)) {
                 Column(

@@ -76,17 +76,15 @@ fun AdminLayoutScope.HomePage() {
     var selectingImageFor by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
-        settings =
-            getHomeInfo()
+        settings = getHomeInfo()
     }
 
     Column(Modifier.fillMaxSize().overflow(Overflow.Auto).padding(AppSpacing.S4)) {
         H2(
             HeadlineMdStyle
                 .toModifier()
-                .margin(
-                    bottom = AppSpacing.S4,
-                ).toAttrs(),
+                .margin(bottom = AppSpacing.S4)
+                .toAttrs(),
         ) {
             Text("Home Page Settings")
         }
@@ -94,11 +92,9 @@ fun AdminLayoutScope.HomePage() {
         message?.let { message ->
             P(
                 Modifier
-                    .color(
-                        if (message.second) AppColors.OnSecondaryContainer else AppColors.Error,
-                    ).backgroundColor(
-                        if (message.second) AppColors.SecondaryContainer else AppColors.ErrorContainer,
-                    ).padding(AppSpacing.S2)
+                    .color(if (message.second) AppColors.OnSecondaryContainer else AppColors.Error)
+                    .backgroundColor(if (message.second) AppColors.SecondaryContainer else AppColors.ErrorContainer)
+                    .padding(AppSpacing.S2)
                     .borderRadius(AppRadius.Default)
                     .margin(bottom = AppSpacing.S3)
                     .toAttrs(),
@@ -136,6 +132,15 @@ fun AdminLayoutScope.HomePage() {
                         settings = settings?.copy(hero = hero.copy(image = it))
                     }
                     Button(Modifier.onClick { selectingImageFor = "heroImage" }.toAttrs()) { Text("Pick") }
+                }
+                Row(
+                    Modifier.gap(AppSpacing.S2),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    AdminFieldNull("Hero Video URL", hero.video) {
+                        settings = settings?.copy(hero = hero.copy(video = it))
+                    }
+                    Button(Modifier.onClick { selectingImageFor = "heroVideo" }.toAttrs()) { Text("Pick") }
                 }
 
                 H2(
@@ -466,6 +471,10 @@ fun AdminLayoutScope.HomePage() {
                 when {
                     selectingImageFor == "heroImage" -> {
                         settings?.copy(hero = settings!!.hero.copy(image = url))
+                    }
+
+                    selectingImageFor == "heroVideo" -> {
+                        settings?.copy(hero = settings!!.hero.copy(video = url))
                     }
 
                     selectingImageFor == "aboutImage" -> {

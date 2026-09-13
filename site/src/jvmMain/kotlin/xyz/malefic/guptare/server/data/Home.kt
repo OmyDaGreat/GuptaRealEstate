@@ -17,6 +17,7 @@ var homeInfo by file(
                 title = "Results You'll Love, Without the Guesswork",
                 subtitle = "I believe that achieving great results shouldn't come with a side of overwhelm. I’m here to streamline the entire process, giving you total clarity and confidence from day one.",
                 image = "/Logo.jpg",
+                video = null,
             ),
         stats =
             listOf(

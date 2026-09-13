@@ -20,6 +20,7 @@ data class HeroHomeInfo(
     val title: String,
     val subtitle: String,
     val image: String,
+    val video: String? = null,
 )
 
 @Serializable
