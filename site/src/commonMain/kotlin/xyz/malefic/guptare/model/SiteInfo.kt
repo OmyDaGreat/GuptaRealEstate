@@ -15,7 +15,7 @@ data class SiteInfo(
     val footerDescription: String,
     val logoUrl: String,
     val affiliationLogos: List<String>,
-    val tiktokUrl: String,
+    val ytUrl: String,
     val instagramUrl: String,
     val linkedinUrl: String,
     val disclaimerText: String,

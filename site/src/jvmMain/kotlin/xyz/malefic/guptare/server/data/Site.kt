@@ -21,7 +21,7 @@ var siteInfo by file(
                 "https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85,fit=scale-down,width=960/https://media-production.lp-cdn.com/media/7d3ff192-7c1e-4f27-ad8c-1b946291eb0a",
                 "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngkey.com%2Fpng%2Ffull%2F754-7541936_luxury-portfolio-logo-hd.png&f=1&nofb=1&ipt=4fa5eacd254975e773a2a0c3e10e84a0b15d15d70e67419ac8cbd31dd8b6cca2",
             ),
-        tiktokUrl = "https://tiktok.com",
+        ytUrl = "https://youtube.com",
         instagramUrl = "https://instagram.com",
         linkedinUrl = "https://linkedin.com",
         disclaimerText = "Equal Housing Opportunity. All information provided is deemed reliable but is not guaranteed and should be independently verified. This is not intended as legal, tax, or financial advice. If you are currently working with another real estate agent under a signed representation agreement, this is not a solicitation of that business relationship.",

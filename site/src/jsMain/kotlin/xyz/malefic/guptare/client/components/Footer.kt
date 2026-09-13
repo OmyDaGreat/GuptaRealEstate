@@ -26,7 +26,7 @@ import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.fa.FaInstagram
 import com.varabyte.kobweb.silk.components.icons.fa.FaLinkedin
-import com.varabyte.kobweb.silk.components.icons.fa.FaTiktok
+import com.varabyte.kobweb.silk.components.icons.fa.FaYoutube
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.style.toModifier
 import org.jetbrains.compose.web.css.em
@@ -72,7 +72,7 @@ fun CopyrightStrip(siteInfo: SiteInfo?) =
                     Modifier.gap(AppSpacing.S4),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    SocialIcon(siteInfo?.tiktokUrl) { FaTiktok() }
+                    SocialIcon(siteInfo?.ytUrl) { FaYoutube() }
                     SocialIcon(siteInfo?.instagramUrl) { FaInstagram() }
                     SocialIcon(siteInfo?.linkedinUrl) { FaLinkedin() }
                 }

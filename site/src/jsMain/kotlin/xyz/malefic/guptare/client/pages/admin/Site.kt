@@ -208,8 +208,8 @@ fun AdminLayoutScope.SiteSettingsPage() {
                 AdminField("Address", agentAddress) {
                     settings = settings?.copy(agentAddress = it)
                 }
-                AdminField("TikTok URL", tiktokUrl) {
-                    settings = settings?.copy(tiktokUrl = it)
+                AdminField("Youtube URL", ytUrl) {
+                    settings = settings?.copy(ytUrl = it)
                 }
                 AdminField("Instagram URL", instagramUrl) {
                     settings = settings?.copy(instagramUrl = it)
