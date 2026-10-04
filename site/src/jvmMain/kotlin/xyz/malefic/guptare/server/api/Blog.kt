@@ -53,7 +53,11 @@ val blog: Array<RoutingHttpHandler> =
 
                 val index = blogs.indexOfFirst { it.id == id }
                 if (index == -1) return@auth error("Blog post not found")
-                blogs[index] = post
+
+                blogs =
+                    blogs.mapIndexed { currentIndex, existingPost ->
+                        if (currentIndex == index) post else existingPost
+                    }
                 Response(OK)
             },
         "/api/blog/{id}" bind DELETE to
@@ -61,7 +65,11 @@ val blog: Array<RoutingHttpHandler> =
                 val id = path("id")?.let { Uuid.parse(it) } ?: return@auth error("Missing blog post ID")
                 val index = blogs.indexOfFirst { it.id == id }
                 if (index == -1) return@auth error("Blog post not found")
-                blogs.removeAt(index)
+
+                blogs =
+                    blogs.filterIndexed { currentIndex, _ ->
+                        currentIndex != index
+                    }
                 Response(OK)
             },
     )

@@ -5,9 +5,9 @@ import xyz.malefic.guptare.model.BlogPostResponse
 import xyz.malefic.guptare.server.util.file
 import kotlin.uuid.Uuid
 
-val blogs by file(
+var blogs by file(
     "blog.json",
-    mutableListOf(
+    listOf(
         BlogPostResponse(
             Uuid.random(),
             "Market Trends 2026",
