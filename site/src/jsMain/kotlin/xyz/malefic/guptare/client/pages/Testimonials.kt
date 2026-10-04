@@ -6,35 +6,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.varabyte.kobweb.compose.css.AnimationIterationCount
-import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.animation
 import com.varabyte.kobweb.compose.ui.modifiers.display
-import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
+import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.flex
 import com.varabyte.kobweb.compose.ui.modifiers.flexDirection
 import com.varabyte.kobweb.compose.ui.modifiers.gap
-import com.varabyte.kobweb.compose.ui.modifiers.height
-import com.varabyte.kobweb.compose.ui.modifiers.overflow
+import com.varabyte.kobweb.compose.ui.modifiers.minHeight
 import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.compose.ui.modifiers.translateY
-import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.silk.style.CssStyle
-import com.varabyte.kobweb.silk.style.animation.Keyframes
-import com.varabyte.kobweb.silk.style.animation.toAnimation
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toModifier
-import org.jetbrains.compose.web.css.AnimationTimingFunction
+import kotlinx.browser.document
+import kotlinx.browser.window
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.FlexDirection
-import org.jetbrains.compose.web.css.percent
-import org.jetbrains.compose.web.css.s
 import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
@@ -45,29 +36,17 @@ import xyz.malefic.guptare.client.styles.BodyMdStyle
 import xyz.malefic.guptare.client.styles.ContentCardStyle
 import xyz.malefic.guptare.client.styles.LabelSmStyle
 import xyz.malefic.guptare.model.Testimonial
-
-val ScrollUpKeyframes =
-    Keyframes {
-        from { Modifier.translateY(0.percent) }
-        to { Modifier.translateY((-50).percent) }
-    }
-
-val ScrollDownKeyframes =
-    Keyframes {
-        from { Modifier.translateY((-50).percent) }
-        to { Modifier.translateY(0.percent) }
-    }
+import kotlin.time.Duration.Companion.milliseconds
 
 val MarqueeContainerStyle =
     CssStyle {
         base {
             Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .display(DisplayStyle.Flex)
                 .flexDirection(FlexDirection.Row)
                 .gap(AppSpacing.S3)
                 .padding(topBottom = AppSpacing.S2)
-                .overflow(Overflow.Hidden)
         }
     }
 
@@ -76,25 +55,9 @@ val MarqueeColumnStyle =
         base {
             Modifier
                 .flex(1)
-                .height(100.vh)
-                .overflow(Overflow.Hidden)
                 .display(DisplayStyle.Flex)
                 .flexDirection(FlexDirection.Column)
                 .padding(leftRight = AppSpacing.S2)
-        }
-    }
-
-val MarqueeContentStyle =
-    CssStyle {
-        base {
-            Modifier.styleModifier {
-                property("animation-play-state", "running")
-            }
-        }
-        hover {
-            Modifier.styleModifier {
-                property("animation-play-state", "paused")
-            }
         }
     }
 
@@ -119,12 +82,29 @@ fun TestimonialsPage() {
         testimonials = getTestimonials()
     }
 
+    LaunchedEffect(testimonials) {
+        if (testimonials == null) return@LaunchedEffect
+
+        while (true) {
+            delay(16.milliseconds)
+            val documentHeight = document.documentElement?.scrollHeight ?: 0
+            val viewportHeight = window.innerHeight
+
+            if (documentHeight <= viewportHeight) continue
+            if (window.scrollY + viewportHeight >= documentHeight - 1) {
+                window.scrollTo(0.0, 0.0)
+            } else {
+                window.scrollBy(0.0, 1.0)
+            }
+        }
+    }
+
     Loading(testimonials) {
         val allTestimonials = this@Loading
         Row(MarqueeContainerStyle.toModifier()) {
-            MarqueeColumn(allTestimonials, isUp = true, delay = 0, modifier = Column1Style.toModifier())
-            MarqueeColumn(allTestimonials, isUp = false, delay = -10, modifier = Column2Style.toModifier())
-            MarqueeColumn(allTestimonials, isUp = true, delay = -20, modifier = Column3Style.toModifier())
+            MarqueeColumn(allTestimonials, modifier = Column1Style.toModifier())
+            MarqueeColumn(allTestimonials, modifier = Column2Style.toModifier())
+            MarqueeColumn(allTestimonials, modifier = Column3Style.toModifier())
         }
     }
 }
@@ -132,28 +112,15 @@ fun TestimonialsPage() {
 @Composable
 fun MarqueeColumn(
     testimonials: List<Testimonial>,
-    isUp: Boolean,
-    delay: Int,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier.then(MarqueeColumnStyle.toModifier())) {
-        val animation = if (isUp) ScrollUpKeyframes else ScrollDownKeyframes
-        Column(
-            MarqueeContentStyle
-                .toModifier()
-                .animation(
-                    animation.toAnimation(
-                        duration = 40.s,
-                        timingFunction = AnimationTimingFunction.Linear,
-                        iterationCount = AnimationIterationCount.Infinite,
-                        delay = delay.s,
-                    ),
-                ).gap(AppSpacing.S3),
-        ) {
+        Column(Modifier.minHeight(100.vh).gap(AppSpacing.S3)) {
             (testimonials + testimonials).forEach { testimonial ->
                 Column(ContentCardStyle.toModifier()) {
                     Span(BodyMdStyle.toModifier().toAttrs()) { Text(testimonial.quote) }
-                    Span(LabelSmStyle.toModifier().toAttrs()) { Text("") }
+                    Span(LabelSmStyle.toModifier().toAttrs()) { Text(" ") }
+                    Span(LabelSmStyle.toModifier().toAttrs()) { Text(" ") }
                     Span(LabelSmStyle.toModifier().toAttrs()) { Text(testimonial.author) }
                 }
             }
