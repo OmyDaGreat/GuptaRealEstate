@@ -79,7 +79,6 @@ import xyz.malefic.guptare.client.styles.SectionStyle
 import xyz.malefic.guptare.client.styles.StatusChipTertiaryStyle
 import xyz.malefic.guptare.client.util.BlogSearch
 import xyz.malefic.guptare.model.BlogPostResponse
-import kotlin.collections.contains
 import kotlin.time.Duration.Companion.milliseconds
 
 @Page
@@ -90,9 +89,7 @@ fun BlogIndexPage() {
     var debouncedQuery by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        val fetchedPosts =
-            getBlog()
-                .sortedByDescending { it.date }
+        val fetchedPosts = getBlog().sortedByDescending { it.date }
         posts = fetchedPosts
         BlogSearch.build(fetchedPosts)
     }
@@ -116,33 +113,19 @@ fun BlogIndexPage() {
     Column(Modifier.fillMaxSize()) {
         BlogHeroSection(searchQuery) { searchQuery = it }
 
-        Box(
-            SectionStyle.toModifier().backgroundColor(
-                AppColors.SurfaceLowest,
-            ),
-            Alignment.Center,
-        ) {
-            Box(
-                ContainerStyle
-                    .toModifier(),
-            ) {
+        Box(SectionStyle.toModifier().backgroundColor(AppColors.SurfaceLowest), Alignment.Center) {
+            Box(ContainerStyle.toModifier()) {
                 Loading(filteredPosts) {
                     if (this.isEmpty()) {
                         Box(Modifier.fillMaxWidth().padding(topBottom = 100.px), contentAlignment = Alignment.Center) {
-                            P(
-                                BodyLgStyle
-                                    .toModifier()
-                                    .toAttrs(),
-                            ) {
+                            P(BodyLgStyle.toModifier().toAttrs()) {
                                 Text(if (debouncedQuery.isEmpty()) "No blog posts found." else "No results matching \"$debouncedQuery\"")
                             }
                         }
                     } else {
                         SimpleGrid(
-                            numColumns(1, sm = 2, md = 3),
-                            Modifier
-                                .gap(AppSpacing.Gutter)
-                                .padding(topBottom = AppSpacing.SectionGap),
+                            numColumns(1),
+                            Modifier.gap(AppSpacing.Gutter).padding(topBottom = AppSpacing.SectionGap),
                         ) {
                             this.forEach { post ->
                                 BlogCard(post)
