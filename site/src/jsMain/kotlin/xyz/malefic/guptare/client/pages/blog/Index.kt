@@ -56,6 +56,7 @@ import org.jetbrains.compose.web.attributes.placeholder
 import org.jetbrains.compose.web.css.Position
 import org.jetbrains.compose.web.css.em
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.vw
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.P
@@ -114,7 +115,7 @@ fun BlogIndexPage() {
         BlogHeroSection(searchQuery) { searchQuery = it }
 
         Box(SectionStyle.toModifier().backgroundColor(AppColors.SurfaceLowest), Alignment.Center) {
-            Box(ContainerStyle.toModifier()) {
+            Box(ContainerStyle.toModifier().maxWidth(100.vw)) {
                 Loading(filteredPosts) {
                     if (this.isEmpty()) {
                         Box(Modifier.fillMaxWidth().padding(topBottom = 100.px), contentAlignment = Alignment.Center) {
@@ -235,11 +236,7 @@ fun BlogHeroSection(
 @Composable
 fun BlogCard(post: BlogPostResponse) {
     Link("/blog/${post.id}", Modifier.textDecorationLine(TextDecorationLine.None).fillMaxWidth()) {
-        Column(
-            PropertyCardStyle
-                .toModifier()
-                .fillMaxWidth(),
-        ) {
+        Column(PropertyCardStyle.toModifier().fillMaxWidth()) {
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -257,11 +254,9 @@ fun BlogCard(post: BlogPostResponse) {
             Column(Modifier.padding(AppSpacing.S4)) {
                 Row(Modifier.gap(8.px).margin(bottom = 12.px)) {
                     post.tags.take(3).forEach { tag ->
-                        Span(
-                            StatusChipTertiaryStyle
-                                .toModifier()
-                                .toAttrs(),
-                        ) { Text(tag) }
+                        Span(StatusChipTertiaryStyle.toModifier().toAttrs()) {
+                            Text(tag)
+                        }
                     }
                 }
 
@@ -288,9 +283,8 @@ fun BlogCard(post: BlogPostResponse) {
                     Span(
                         LabelMdStyle
                             .toModifier()
-                            .color(
-                                AppColors.Primary,
-                            ).toAttrs(),
+                            .color(AppColors.Primary)
+                            .toAttrs(),
                     ) {
                         Text("Read More")
                     }
