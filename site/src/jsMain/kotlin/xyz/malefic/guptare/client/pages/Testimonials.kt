@@ -115,13 +115,12 @@ fun MarqueeColumn(
     offset: Int = 0,
     modifier: Modifier = Modifier,
 ) {
-    val offsetTestimonials =
-        testimonials.drop(offset % testimonials.size) +
-            testimonials.take(offset % testimonials.size)
+    val start = offset % testimonials.size
+    val ordered = testimonials.drop(start) + testimonials.take(start)
 
     Column(modifier.then(MarqueeColumnStyle.toModifier())) {
         Column(Modifier.minHeight(100.vh).gap(AppSpacing.S3)) {
-            (offsetTestimonials + testimonials).forEach { testimonial ->
+            (ordered + ordered).forEach { testimonial ->
                 Column(ContentCardStyle.toModifier()) {
                     Span(BodyMdStyle.toModifier().toAttrs()) { Text(testimonial.quote) }
                     Span(LabelSmStyle.toModifier().toAttrs()) { Text(" ") }
