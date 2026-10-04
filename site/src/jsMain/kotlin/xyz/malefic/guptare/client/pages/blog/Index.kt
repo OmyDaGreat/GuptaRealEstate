@@ -126,7 +126,7 @@ fun BlogIndexPage() {
                     } else {
                         SimpleGrid(
                             numColumns(1),
-                            Modifier.gap(AppSpacing.Gutter).padding(topBottom = AppSpacing.SectionGap),
+                            Modifier.gap(AppSpacing.Gutter).fillMaxWidth().padding(topBottom = AppSpacing.SectionGap),
                         ) {
                             this.forEach { post ->
                                 BlogCard(post)
