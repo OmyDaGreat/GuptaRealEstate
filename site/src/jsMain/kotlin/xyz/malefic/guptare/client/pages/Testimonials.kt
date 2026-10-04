@@ -100,11 +100,11 @@ fun TestimonialsPage() {
     }
 
     Loading(testimonials) {
-        val allTestimonials = this@Loading
+        val testimonials = this@Loading
         Row(MarqueeContainerStyle.toModifier()) {
-            MarqueeColumn(allTestimonials, modifier = Column1Style.toModifier())
-            MarqueeColumn(allTestimonials, modifier = Column2Style.toModifier())
-            MarqueeColumn(allTestimonials, modifier = Column3Style.toModifier())
+            MarqueeColumn(testimonials, offset = 0, modifier = Column1Style.toModifier())
+            MarqueeColumn(testimonials, offset = testimonials.size / 3, modifier = Column2Style.toModifier())
+            MarqueeColumn(testimonials, offset = 2 * testimonials.size / 3, modifier = Column3Style.toModifier())
         }
     }
 }
@@ -112,11 +112,16 @@ fun TestimonialsPage() {
 @Composable
 fun MarqueeColumn(
     testimonials: List<Testimonial>,
+    offset: Int = 0,
     modifier: Modifier = Modifier,
 ) {
+    val offsetTestimonials =
+        testimonials.drop(offset % testimonials.size) +
+            testimonials.take(offset % testimonials.size)
+
     Column(modifier.then(MarqueeColumnStyle.toModifier())) {
         Column(Modifier.minHeight(100.vh).gap(AppSpacing.S3)) {
-            (testimonials + testimonials).forEach { testimonial ->
+            (offsetTestimonials + testimonials).forEach { testimonial ->
                 Column(ContentCardStyle.toModifier()) {
                     Span(BodyMdStyle.toModifier().toAttrs()) { Text(testimonial.quote) }
                     Span(LabelSmStyle.toModifier().toAttrs()) { Text(" ") }
